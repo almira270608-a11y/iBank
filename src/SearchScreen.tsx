@@ -40,7 +40,7 @@ export default function SearchScreen({ navigation }: { navigation: any }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      {/* Хедер с кнопкой «Назад» и заголовком */}
+      {/* Хедер */}
       <View style={styles.header}>
         <TouchableOpacity 
           onPress={() => navigation.goBack()} 
@@ -70,8 +70,7 @@ export default function SearchScreen({ navigation }: { navigation: any }) {
               } else if (item.title === 'Exchange rate') {
                 navigation.navigate('ExchangeRate');
               } else if (item.title === 'Exchange') {
-                // Если появится экран обмена валюты, добавьте его сюда
-                // navigation.navigate('Exchange');
+                navigation.navigate('Exchange');
               }
             }}
           >
@@ -97,7 +96,6 @@ export default function SearchScreen({ navigation }: { navigation: any }) {
           <Ionicons name="home-outline" size={24} color="#8C8C8C" />
         </TouchableOpacity>
 
-        {/* Активная вкладка Search */}
         <TouchableOpacity style={[styles.navItem, styles.activeNav]}>
           <Ionicons name="search" size={18} color="#fff" />
           <Text style={styles.activeNavText}>Search</Text>
@@ -107,7 +105,10 @@ export default function SearchScreen({ navigation }: { navigation: any }) {
           <Ionicons name="mail-outline" size={24} color="#8C8C8C" />
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity 
+          style={styles.navItem} 
+          onPress={() => navigation.navigate('Setting')}
+        >
           <Ionicons name="settings-outline" size={24} color="#8C8C8C" />
         </TouchableOpacity>
       </View>

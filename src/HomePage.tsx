@@ -14,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function HomeScreen({ navigation }: { navigation: any }) {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      {/* Верхний хедер с профилем */}
       <View style={styles.topHeader}>
         <View style={styles.userInfo}>
           <Image 
@@ -30,6 +31,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         </TouchableOpacity>
       </View>
 
+      {/* Основной контент */}
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
@@ -37,6 +39,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         bounces={false}
         overScrollMode="never"
       >
+        {/* Карточка банка */}
         <View style={styles.cardContainer}>
           <View style={styles.purpleBackgroundCard} />
           <View style={styles.bankCarddd} />
@@ -59,6 +62,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           </View>
         </View>
          
+        {/* Сетка функций */}
         <View style={styles.gridContainer}>
           <TouchableOpacity style={styles.gridItem}>
             <View style={[styles.iconBox, { backgroundColor: '#EEF0FF' }]}>
@@ -67,7 +71,12 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
             <Text style={styles.gridText}>Account and Card</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.gridItem}>
+          {/* Переход на экран Transfer */}
+          <TouchableOpacity 
+            style={styles.gridItem}
+            onPress={() => navigation.navigate('Transfer')}
+            activeOpacity={0.7}
+          >
             <View style={[styles.iconBox, { backgroundColor: '#FFEEF0' }]}>
               <MaterialCommunityIcons name="swap-horizontal" size={24} color="#FF5252" />
             </View>
@@ -125,13 +134,13 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         </View>
       </ScrollView>
  
+      {/* Нижняя навигация */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={[styles.navItem, styles.activeNav]}>
           <Ionicons name="home" size={18} color="#fff" />
           <Text style={styles.activeNavText}>Home</Text>
         </TouchableOpacity>
         
-        {/* Переход на экран Search */}
         <TouchableOpacity 
           style={styles.navItem} 
           onPress={() => navigation.navigate('Search')}
@@ -142,7 +151,11 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <TouchableOpacity style={styles.navItem}>
           <Ionicons name="mail-outline" size={22} color="#888" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
+
+        <TouchableOpacity 
+          style={styles.navItem} 
+          onPress={() => navigation.navigate('Setting')}
+        >
           <Ionicons name="settings-outline" size={22} color="#888" />
         </TouchableOpacity>
       </View>

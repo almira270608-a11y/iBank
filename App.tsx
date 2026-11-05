@@ -12,6 +12,10 @@ import SearchScreen from './src/SearchScreen';
 import BranchSearchScreen from './src/BranchSearchScreen';
 import InterestRateScreen from './src/InterestRateScreen';
 import ExchangeRateScreen from './src/ExchangeRateScreen';
+import SettingScreen from './src/SettingScreen';
+import LanguageScreen from './src/LanguageScreen';
+import ExchangeScreen from './src/ExchangeScreen';
+import TransferScreen from './src/TransferScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,10 @@ export default function App() {
         initialRouteName="Login"
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name="Transfer" component={TransferScreen} />
+        <Stack.Screen name="Exchange" component={ExchangeScreen} />
+        <Stack.Screen name="Language" component={LanguageScreen} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
         <Stack.Screen name="InterestRate" component={InterestRateScreen} />
         <Stack.Screen name="ExchangeRate" component={ExchangeRateScreen} />
         <Stack.Screen name="BranchSearch" component={BranchSearchScreen} />
