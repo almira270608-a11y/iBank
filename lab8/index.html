@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ЗТЖ 8 — JavaScript Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>JavaScript Events</h1>
+
+    <!-- 1. click -->
+    <section>
+      <h2>1. click</h2>
+      <button id="themeBtn" class="btn" type="button">Тақырыпты ауыстыру</button>
+    </section>
+
+    <!-- 2. input -->
+    <section>
+      <h2>2. input</h2>
+      <label for="field">Хабарлама (max 100 таңба)</label>
+      <textarea id="field" rows="3" maxlength="100" placeholder="Мәтін енгізіңіз..."></textarea>
+      <p>Таңба саны: <strong id="counter">0</strong> / 100</p>
+      <p id="hint" class="hint">Мәтін енгізуді бастаңыз.</p>
+    </section>
+
+    <!-- 3. submit -->
+    <section>
+      <h2>3. submit</h2>
+      <form id="form">
+        <input id="userName" type="text" placeholder="Атыңыз" required>
+        <button class="btn" type="submit">Жіберу</button>
+      </form>
+      <p id="status" class="status">Мәртебе: форма жіберілмеген.</p>
+    </section>
+
+    <!-- 4. Сервер -->
+    <section>
+      <h2>4. Сервер жауабы (hello.php)</h2>
+      <button id="serverBtn" class="btn" type="button">Серверден сұрау</button>
+      <pre id="serverOut">Жауап осында көрсетіледі...</pre>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
