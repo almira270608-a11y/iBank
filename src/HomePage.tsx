@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
       <View style={styles.topHeader}>
         <View style={styles.userInfo}>
           <Image 
-            source={{ uri:'../assets/шрек.png' }} 
+            source={require('../assets/шрек.png')} 
             style={styles.avatarPlaceholder} 
           />
           <View>
@@ -37,14 +37,11 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         bounces={false}
         overScrollMode="never"
       >
-        
         <View style={styles.cardContainer}>
-          
           <View style={styles.purpleBackgroundCard} />
           <View style={styles.bankCarddd} />
 
           <View style={styles.card}>
-            
             <View style={styles.bigCircle} />
             <View style={styles.smallCircle} />
 
@@ -52,7 +49,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
             <View>
               <Text style={styles.cardType}>Amazon Platinium</Text>
-              <Text style={styles.cardNumber}>4756  ••••  ••••  9018</Text>
+              <Text style={styles.cardNumber}>4756   ••••   ••••   9018</Text>
             </View>
 
             <View style={styles.cardBottom}>
@@ -63,7 +60,6 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         </View>
          
         <View style={styles.gridContainer}>
-          
           <TouchableOpacity style={styles.gridItem}>
             <View style={[styles.iconBox, { backgroundColor: '#EEF0FF' }]}>
               <Ionicons name="wallet-outline" size={24} color="#3023AE" />
@@ -128,16 +124,21 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-  
+ 
       <View style={styles.bottomNav}>
         <TouchableOpacity style={[styles.navItem, styles.activeNav]}>
           <Ionicons name="home" size={18} color="#fff" />
           <Text style={styles.activeNavText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
+        
+        {/* Переход на экран Search */}
+        <TouchableOpacity 
+          style={styles.navItem} 
+          onPress={() => navigation.navigate('Search')}
+        >
           <Ionicons name="search-outline" size={22} color="#888" />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.navItem}>
           <Ionicons name="mail-outline" size={22} color="#888" />
         </TouchableOpacity>
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
   },
   topHeader: {
     height: 53,
-     marginTop: 60,
+    marginTop: 60,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -198,7 +199,6 @@ const styles = StyleSheet.create({
     borderRadius: 70.5,
     backgroundColor: '#FF4267',
   },
-
   scroll: {
     flex: 1,
     backgroundColor: '#fefefe',
@@ -209,7 +209,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 30,
   },
-
   cardContainer: {
     marginHorizontal: 24,
     marginBottom: 30,
@@ -232,7 +231,7 @@ const styles = StyleSheet.create({
     borderRadius: 185,
     backgroundColor: '#1A7BFF',
   },
-  smallCircle: {                 
+  smallCircle: {                
     position: 'absolute',
     right: -37,
     top: -45,
@@ -272,7 +271,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontStyle: 'italic',
   },
-  bankCarddd: {                   
+  bankCarddd: {                  
     position: 'absolute',
     bottom: -10,
     left: 18,
@@ -281,7 +280,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#FF4267',
   },
-  purpleBackgroundCard: {         
+  purpleBackgroundCard: {        
     position: 'absolute',
     bottom: -20,
     left: 34,
@@ -290,7 +289,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#5A55CA',
   },
-  
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

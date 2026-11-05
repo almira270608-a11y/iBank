@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -13,33 +14,27 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-interface LoginscreenProps {
-  navigation?: any;
-}
-
-export const Loginscreen: React.FC<LoginscreenProps> = ({ navigation }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+export default function LoginScreen({ navigation }: any) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignIn = () => {
-    console.log('Logging in:', email);
-  };
+    if (!email.trim() || !password.trim()) {
+      alert('Please enter email and password');
+      return;
+    }
 
-  const handleBiometricAuth = () => {
-    console.log('Biometric auth requested');
+    navigation.replace('Home');
   };
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <StatusBar barStyle='light-content' backgroundColor = "#3629B7" />
-      
+      <StatusBar barStyle="light-content" backgroundColor="#3629B7" />
+
       <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation?.goBack()}
-        >
-          <Ionicons name="chevron-back" marginLeft= {4} size={30} color="#FFF" />
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={30} color="#FFF" />
           <Text style={styles.headerTitle}>Sign in</Text>
         </TouchableOpacity>
       </View>
@@ -48,12 +43,11 @@ export const Loginscreen: React.FC<LoginscreenProps> = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <ScrollView 
+        <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
-          bounces={false}
-          overScrollMode="never"
+          keyboardShouldPersistTaps="handled"
         >
           <Text style={styles.welcomeTitle}>Welcome Back</Text>
           <Text style={styles.subtitle}>Hello there, sign in to continue</Text>
@@ -64,12 +58,7 @@ export const Loginscreen: React.FC<LoginscreenProps> = ({ navigation }) => {
                 <Ionicons name="lock-closed" size={30} color="#4C35DE" />
               </View>
             </View>
-          <View style={styles.lockCard}>
-            <View style={styles.lockIconWrapper}>
-              <Ionicons name="lock-closed" size={28} color="#3629B7" />
-             </View>
-            </View>
-            
+
             <View style={[styles.dot, styles.dotPurple]} />
             <View style={[styles.dot, styles.dotPink]} />
             <View style={[styles.dot, styles.dotGreen]} />
@@ -98,92 +87,80 @@ export const Loginscreen: React.FC<LoginscreenProps> = ({ navigation }) => {
               value={password}
               onChangeText={setPassword}
             />
-            <TouchableOpacity 
-              style={styles.eyeIcon} 
+
+            <TouchableOpacity
+              style={styles.eyeIcon}
               onPress={() => setShowPassword(!showPassword)}
             >
-              <Ionicons 
-                name={showPassword ? "chevron-up" : "chevron-down"} 
-                size={20} 
-                color="#C4C4C4" 
+              <Ionicons
+                name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                size={20}
+                color="#C4C4C4"
               />
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.forgotPassword}
-            onPress={() => navigation?.navigate('ForgotPassword')}
+            onPress={() => navigation.navigate('ForgotPassword')}
           >
             <Text style={styles.forgotText}>Forgot your password ?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              styles.signInButton, 
-              (email && password) ? styles.activeButton : styles.disabledButton
-            ]} 
-            activeOpacity={0.8}
+              styles.signInButton,
+              email && password ? styles.activeButton : styles.disabledButton,
+            ]}
             onPress={handleSignIn}
+            activeOpacity={0.8}
           >
-            <Text 
-              style={[
-                styles.signInButtonText,
-                (email && password) ? styles.activeButtonText : styles.disabledButtonText
-              ]}
-            >
+            <Text style={[
+              styles.signInButtonText,
+              email && password ? styles.activeButtonText : styles.disabledButtonText,
+            ]}>
               Sign in
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={styles.fingerprintButton}
-            onPress={handleBiometricAuth}
-          >
+          <TouchableOpacity style={styles.fingerprintButton}>
             <Ionicons name="finger-print" size={56} color="#4C35DE" />
           </TouchableOpacity>
 
-          <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'center', alignContent: 'center' }}>
-        <Text>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={{ color: '#3D37C4', fontWeight: 'bold' }}>Sign Up</Text>
-        </TouchableOpacity>
+          <View style={styles.footer}>
+            <Text>Don't have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Text style={styles.linkText}>Sign Up</Text>
+            </TouchableOpacity>
           </View>
-
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-};
-
-export default Loginscreen;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3629B7',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,  },
-    header: {
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
+  header: {
     height: 53,
     marginTop: 42,
     paddingHorizontal: 14,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
   },
   backButton: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginTop: 10,
+    alignItems: 'center',
     gap: 10,
-    
+    marginTop: 10,
   },
   headerTitle: {
     color: '#FFFFFF',
     fontSize: 24,
     fontWeight: '600',
-    lineHeight: 28,
-    marginLeft: 5,
   },
-
   scroll: {
     flex: 1,
     backgroundColor: '#FFF',
@@ -195,24 +172,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 22,
     paddingBottom: 24,
-    alignItems: 'stretch',
   },
   welcomeTitle: {
     fontSize: 24,
     fontWeight: '700',
-    lineHeight: 28,
     color: '#3629B7',
-    alignSelf: 'flex-start',
-    marginTop: 1,
   },
   subtitle: {
     fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 16,
-    color: '#000000',
+    color: '#000',
     marginTop: 6,
     marginBottom: 16,
-    textAlign: 'left',
   },
   illustrationWrapper: {
     width: 213,
@@ -221,7 +191,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
-    position: 'relative',
   },
   circleBackground: {
     width: 150,
@@ -239,59 +208,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
   dot: {
     position: 'absolute',
     borderRadius: 50,
   },
-  dotPink: { 
-    width: 25,                 
-    height: 25,                 
-    borderRadius: 12.5,         
-    backgroundColor: '#FF4267', 
-    top: 5,                    
-    right: 15,                  
-    position: 'absolute', 
+  dotPink: {
+    width: 25,
+    height: 25,
+    backgroundColor: '#FF4267',
+    top: 5,
+    right: 15,
   },
-  dotPurple: { 
-    width: 10,                 
-    height: 10,                 
-    borderRadius: 10,            
-    backgroundColor: '#3629B7', 
-    top: 5,                    
-    left: 45,                  
-    position: 'absolute', 
+  dotPurple: {
+    width: 10,
+    height: 10,
+    backgroundColor: '#3629B7',
+    top: 5,
+    left: 45,
   },
- dotGreen: {
-    width: 10,                  
-    height: 10,                 
-    borderRadius: 5,            
-    backgroundColor: '#52D5BA', 
-    top: 60,                    
-    left: 0,                   
-    position: 'absolute',
+  dotGreen: {
+    width: 10,
+    height: 10,
+    backgroundColor: '#52D5BA',
+    top: 60,
+    left: 0,
   },
   dotYellow: {
-    width: 20,                  
-    height: 20,                 
-    borderRadius: 10,           
-    backgroundColor: '#FFAF2A', 
-    bottom: 25,                 
-    left: 35,                   
-    position: 'absolute',
+    width: 20,
+    height: 20,
+    backgroundColor: '#FFAF2A',
+    bottom: 25,
+    left: 35,
   },
   dotBlue: {
-    width: 10,                  
-    height: 10,                 
-    borderRadius: 5,           
-    backgroundColor: '#0890FE', 
-    bottom: 33,                 
-    right: 30,                  
-    position: 'absolute',
+    width: 10,
+    height: 10,
+    backgroundColor: '#0890FE',
+    bottom: 33,
+    right: 30,
   },
   inputContainer: {
     width: '100%',
@@ -303,27 +258,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 16,
     position: 'relative',
-  },
-  lockCard: {
-    width: 50,
-    height: 73,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    position: 'absolute',
-  },
-  lockIconWrapper: {
-    width: 50,
-    height: 46.09,
-    justifyContent: 'center',
-    alignItems: 'center',
-  
   },
   input: {
     fontSize: 15,
@@ -349,8 +283,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 34, 
-    marginBottom: 1,
+    marginTop: 34,
   },
   disabledButton: {
     backgroundColor: '#F2EFFD',
@@ -369,27 +302,21 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   fingerprintButton: {
-    width: 95,                  
-    height: 95,                
+    width: 95,
+    height: 95,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 24,
-    marginBottom: 24,
   },
   footer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 'auto',
+    marginTop: 12,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  footerText: {
-    color: '#7F7F7F',
-    fontSize: 14,
-  },
-  signUpText: {
-    color: '#4C35DE',
-    fontSize: 14,
+  linkText: {
+    color: '#3D37C4',
     fontWeight: 'bold',
   },
 });
